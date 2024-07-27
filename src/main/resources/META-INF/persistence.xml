@@ -2,6 +2,16 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="bibliotecaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>unam.biblioteca.model.Autor</class>
+    <class>unam.biblioteca.model.Prestamo</class>
+    <class>unam.biblioteca.model.Libro</class>
+    <class>unam.biblioteca.model.Idioma</class>
+    <class>unam.biblioteca.model.Miembro</class>
+    <class>unam.biblioteca.model.Rack</class>
+    <class>unam.biblioteca.model.Rol</class>
+    <class>unam.biblioteca.model.Tematica</class>
+    <class>unam.biblioteca.model.Copia</class>
+    <class>unam.biblioteca.model.Editorial</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/biblioteca?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
