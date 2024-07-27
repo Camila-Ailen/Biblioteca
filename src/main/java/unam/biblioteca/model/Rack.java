@@ -21,6 +21,39 @@ public class Rack {
     private ArrayList<Copia> listaCopias;
     
     //controladores, getters y setters
+
+    public Rack() {
+    }
+
+    public Rack(int id, String descripcion, ArrayList<Copia> listaCopias) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.listaCopias = listaCopias;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public ArrayList<Copia> getListaCopias() {
+        return listaCopias;
+    }
+
+    public void setListaCopias(ArrayList<Copia> listaCopias) {
+        this.listaCopias = listaCopias;
+    }
     
     
 }

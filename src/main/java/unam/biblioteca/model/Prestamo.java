@@ -30,4 +30,67 @@ public class Prestamo {
     @ManyToOne
     private Copia idCopia;
     
+    //controladores, getters y setters
+
+    public Prestamo() {
+    }
+
+    public Prestamo(int id, Date fechaRetiro, Date fechaDevuelto, double multa, Miembro idMiembro, Copia idCopia) {
+        this.id = id;
+        this.fechaRetiro = fechaRetiro;
+        this.fechaDevuelto = fechaDevuelto;
+        this.multa = multa;
+        this.idMiembro = idMiembro;
+        this.idCopia = idCopia;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getFechaRetiro() {
+        return fechaRetiro;
+    }
+
+    public void setFechaRetiro(Date fechaRetiro) {
+        this.fechaRetiro = fechaRetiro;
+    }
+
+    public Date getFechaDevuelto() {
+        return fechaDevuelto;
+    }
+
+    public void setFechaDevuelto(Date fechaDevuelto) {
+        this.fechaDevuelto = fechaDevuelto;
+    }
+
+    public double getMulta() {
+        return multa;
+    }
+
+    public void setMulta(double multa) {
+        this.multa = multa;
+    }
+
+    public Miembro getIdMiembro() {
+        return idMiembro;
+    }
+
+    public void setIdMiembro(Miembro idMiembro) {
+        this.idMiembro = idMiembro;
+    }
+
+    public Copia getIdCopia() {
+        return idCopia;
+    }
+
+    public void setIdCopia(Copia idCopia) {
+        this.idCopia = idCopia;
+    }
+    
+    
 }
