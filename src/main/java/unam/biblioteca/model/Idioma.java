@@ -1,6 +1,7 @@
 
 package unam.biblioteca.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Idioma {
+public class Idioma implements Serializable {
     //atributos
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)

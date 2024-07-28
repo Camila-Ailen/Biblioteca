@@ -1,6 +1,7 @@
 
 package unam.biblioteca.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Miembro {
+public class Miembro implements Serializable {
     //atributos
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)  
