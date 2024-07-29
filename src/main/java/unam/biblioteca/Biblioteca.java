@@ -1,9 +1,11 @@
 
 package unam.biblioteca;
 
+import unam.biblioteca.controller.ControladoraPersistencia;
+
 public class Biblioteca {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        ControladoraPersistencia control = new ControladoraPersistencia();
     }
 }
