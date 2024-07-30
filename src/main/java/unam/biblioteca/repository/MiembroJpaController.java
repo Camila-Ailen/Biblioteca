@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package unam.biblioteca.repository;
 
 import java.io.Serializable;
@@ -16,7 +19,10 @@ import javax.persistence.Persistence;
 import unam.biblioteca.model.Miembro;
 import unam.biblioteca.repository.exceptions.NonexistentEntityException;
 
-
+/**
+ *
+ * @author camilaailen
+ */
 public class MiembroJpaController implements Serializable {
 
     public MiembroJpaController(EntityManagerFactory emf) {
@@ -41,10 +47,10 @@ public class MiembroJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Rol idRol = miembro.getIdRol();
-            if (idRol != null) {
-                idRol = em.getReference(idRol.getClass(), idRol.getId());
-                miembro.setIdRol(idRol);
+            Rol unRol = miembro.getUnRol();
+            if (unRol != null) {
+                unRol = em.getReference(unRol.getClass(), unRol.getId());
+                miembro.setUnRol(unRol);
             }
             ArrayList<Prestamo> attachedListaPrestamos = new ArrayList<Prestamo>();
             for (Prestamo listaPrestamosPrestamoToAttach : miembro.getListaPrestamos()) {
@@ -53,17 +59,17 @@ public class MiembroJpaController implements Serializable {
             }
             miembro.setListaPrestamos(attachedListaPrestamos);
             em.persist(miembro);
-            if (idRol != null) {
-                idRol.getListaMiembros().add(miembro);
-                idRol = em.merge(idRol);
+            if (unRol != null) {
+                unRol.getListaMiembros().add(miembro);
+                unRol = em.merge(unRol);
             }
             for (Prestamo listaPrestamosPrestamo : miembro.getListaPrestamos()) {
-                Miembro oldIdMiembroOfListaPrestamosPrestamo = listaPrestamosPrestamo.getIdMiembro();
-                listaPrestamosPrestamo.setIdMiembro(miembro);
+                Miembro oldUnMiembroOfListaPrestamosPrestamo = listaPrestamosPrestamo.getUnMiembro();
+                listaPrestamosPrestamo.setUnMiembro(miembro);
                 listaPrestamosPrestamo = em.merge(listaPrestamosPrestamo);
-                if (oldIdMiembroOfListaPrestamosPrestamo != null) {
-                    oldIdMiembroOfListaPrestamosPrestamo.getListaPrestamos().remove(listaPrestamosPrestamo);
-                    oldIdMiembroOfListaPrestamosPrestamo = em.merge(oldIdMiembroOfListaPrestamosPrestamo);
+                if (oldUnMiembroOfListaPrestamosPrestamo != null) {
+                    oldUnMiembroOfListaPrestamosPrestamo.getListaPrestamos().remove(listaPrestamosPrestamo);
+                    oldUnMiembroOfListaPrestamosPrestamo = em.merge(oldUnMiembroOfListaPrestamosPrestamo);
                 }
             }
             em.getTransaction().commit();
@@ -80,13 +86,13 @@ public class MiembroJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Miembro persistentMiembro = em.find(Miembro.class, miembro.getId());
-            Rol idRolOld = persistentMiembro.getIdRol();
-            Rol idRolNew = miembro.getIdRol();
+            Rol unRolOld = persistentMiembro.getUnRol();
+            Rol unRolNew = miembro.getUnRol();
             ArrayList<Prestamo> listaPrestamosOld = persistentMiembro.getListaPrestamos();
             ArrayList<Prestamo> listaPrestamosNew = miembro.getListaPrestamos();
-            if (idRolNew != null) {
-                idRolNew = em.getReference(idRolNew.getClass(), idRolNew.getId());
-                miembro.setIdRol(idRolNew);
+            if (unRolNew != null) {
+                unRolNew = em.getReference(unRolNew.getClass(), unRolNew.getId());
+                miembro.setUnRol(unRolNew);
             }
             ArrayList<Prestamo> attachedListaPrestamosNew = new ArrayList<Prestamo>();
             for (Prestamo listaPrestamosNewPrestamoToAttach : listaPrestamosNew) {
@@ -96,28 +102,28 @@ public class MiembroJpaController implements Serializable {
             listaPrestamosNew = attachedListaPrestamosNew;
             miembro.setListaPrestamos(listaPrestamosNew);
             miembro = em.merge(miembro);
-            if (idRolOld != null && !idRolOld.equals(idRolNew)) {
-                idRolOld.getListaMiembros().remove(miembro);
-                idRolOld = em.merge(idRolOld);
+            if (unRolOld != null && !unRolOld.equals(unRolNew)) {
+                unRolOld.getListaMiembros().remove(miembro);
+                unRolOld = em.merge(unRolOld);
             }
-            if (idRolNew != null && !idRolNew.equals(idRolOld)) {
-                idRolNew.getListaMiembros().add(miembro);
-                idRolNew = em.merge(idRolNew);
+            if (unRolNew != null && !unRolNew.equals(unRolOld)) {
+                unRolNew.getListaMiembros().add(miembro);
+                unRolNew = em.merge(unRolNew);
             }
             for (Prestamo listaPrestamosOldPrestamo : listaPrestamosOld) {
                 if (!listaPrestamosNew.contains(listaPrestamosOldPrestamo)) {
-                    listaPrestamosOldPrestamo.setIdMiembro(null);
+                    listaPrestamosOldPrestamo.setUnMiembro(null);
                     listaPrestamosOldPrestamo = em.merge(listaPrestamosOldPrestamo);
                 }
             }
             for (Prestamo listaPrestamosNewPrestamo : listaPrestamosNew) {
                 if (!listaPrestamosOld.contains(listaPrestamosNewPrestamo)) {
-                    Miembro oldIdMiembroOfListaPrestamosNewPrestamo = listaPrestamosNewPrestamo.getIdMiembro();
-                    listaPrestamosNewPrestamo.setIdMiembro(miembro);
+                    Miembro oldUnMiembroOfListaPrestamosNewPrestamo = listaPrestamosNewPrestamo.getUnMiembro();
+                    listaPrestamosNewPrestamo.setUnMiembro(miembro);
                     listaPrestamosNewPrestamo = em.merge(listaPrestamosNewPrestamo);
-                    if (oldIdMiembroOfListaPrestamosNewPrestamo != null && !oldIdMiembroOfListaPrestamosNewPrestamo.equals(miembro)) {
-                        oldIdMiembroOfListaPrestamosNewPrestamo.getListaPrestamos().remove(listaPrestamosNewPrestamo);
-                        oldIdMiembroOfListaPrestamosNewPrestamo = em.merge(oldIdMiembroOfListaPrestamosNewPrestamo);
+                    if (oldUnMiembroOfListaPrestamosNewPrestamo != null && !oldUnMiembroOfListaPrestamosNewPrestamo.equals(miembro)) {
+                        oldUnMiembroOfListaPrestamosNewPrestamo.getListaPrestamos().remove(listaPrestamosNewPrestamo);
+                        oldUnMiembroOfListaPrestamosNewPrestamo = em.merge(oldUnMiembroOfListaPrestamosNewPrestamo);
                     }
                 }
             }
@@ -150,14 +156,14 @@ public class MiembroJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The miembro with id " + id + " no longer exists.", enfe);
             }
-            Rol idRol = miembro.getIdRol();
-            if (idRol != null) {
-                idRol.getListaMiembros().remove(miembro);
-                idRol = em.merge(idRol);
+            Rol unRol = miembro.getUnRol();
+            if (unRol != null) {
+                unRol.getListaMiembros().remove(miembro);
+                unRol = em.merge(unRol);
             }
             ArrayList<Prestamo> listaPrestamos = miembro.getListaPrestamos();
             for (Prestamo listaPrestamosPrestamo : listaPrestamos) {
-                listaPrestamosPrestamo.setIdMiembro(null);
+                listaPrestamosPrestamo.setUnMiembro(null);
                 listaPrestamosPrestamo = em.merge(listaPrestamosPrestamo);
             }
             em.remove(miembro);

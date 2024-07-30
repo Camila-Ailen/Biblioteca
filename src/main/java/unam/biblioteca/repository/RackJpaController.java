@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package unam.biblioteca.repository;
 
 import java.io.Serializable;
@@ -15,7 +18,10 @@ import javax.persistence.Persistence;
 import unam.biblioteca.model.Rack;
 import unam.biblioteca.repository.exceptions.NonexistentEntityException;
 
-
+/**
+ *
+ * @author camilaailen
+ */
 public class RackJpaController implements Serializable {
 
     public RackJpaController(EntityManagerFactory emf) {
@@ -48,12 +54,12 @@ public class RackJpaController implements Serializable {
             rack.setListaCopias(attachedListaCopias);
             em.persist(rack);
             for (Copia listaCopiasCopia : rack.getListaCopias()) {
-                Rack oldIdRackOfListaCopiasCopia = listaCopiasCopia.getIdRack();
-                listaCopiasCopia.setIdRack(rack);
+                Rack oldUnRackOfListaCopiasCopia = listaCopiasCopia.getUnRack();
+                listaCopiasCopia.setUnRack(rack);
                 listaCopiasCopia = em.merge(listaCopiasCopia);
-                if (oldIdRackOfListaCopiasCopia != null) {
-                    oldIdRackOfListaCopiasCopia.getListaCopias().remove(listaCopiasCopia);
-                    oldIdRackOfListaCopiasCopia = em.merge(oldIdRackOfListaCopiasCopia);
+                if (oldUnRackOfListaCopiasCopia != null) {
+                    oldUnRackOfListaCopiasCopia.getListaCopias().remove(listaCopiasCopia);
+                    oldUnRackOfListaCopiasCopia = em.merge(oldUnRackOfListaCopiasCopia);
                 }
             }
             em.getTransaction().commit();
@@ -82,18 +88,18 @@ public class RackJpaController implements Serializable {
             rack = em.merge(rack);
             for (Copia listaCopiasOldCopia : listaCopiasOld) {
                 if (!listaCopiasNew.contains(listaCopiasOldCopia)) {
-                    listaCopiasOldCopia.setIdRack(null);
+                    listaCopiasOldCopia.setUnRack(null);
                     listaCopiasOldCopia = em.merge(listaCopiasOldCopia);
                 }
             }
             for (Copia listaCopiasNewCopia : listaCopiasNew) {
                 if (!listaCopiasOld.contains(listaCopiasNewCopia)) {
-                    Rack oldIdRackOfListaCopiasNewCopia = listaCopiasNewCopia.getIdRack();
-                    listaCopiasNewCopia.setIdRack(rack);
+                    Rack oldUnRackOfListaCopiasNewCopia = listaCopiasNewCopia.getUnRack();
+                    listaCopiasNewCopia.setUnRack(rack);
                     listaCopiasNewCopia = em.merge(listaCopiasNewCopia);
-                    if (oldIdRackOfListaCopiasNewCopia != null && !oldIdRackOfListaCopiasNewCopia.equals(rack)) {
-                        oldIdRackOfListaCopiasNewCopia.getListaCopias().remove(listaCopiasNewCopia);
-                        oldIdRackOfListaCopiasNewCopia = em.merge(oldIdRackOfListaCopiasNewCopia);
+                    if (oldUnRackOfListaCopiasNewCopia != null && !oldUnRackOfListaCopiasNewCopia.equals(rack)) {
+                        oldUnRackOfListaCopiasNewCopia.getListaCopias().remove(listaCopiasNewCopia);
+                        oldUnRackOfListaCopiasNewCopia = em.merge(oldUnRackOfListaCopiasNewCopia);
                     }
                 }
             }
@@ -128,7 +134,7 @@ public class RackJpaController implements Serializable {
             }
             ArrayList<Copia> listaCopias = rack.getListaCopias();
             for (Copia listaCopiasCopia : listaCopias) {
-                listaCopiasCopia.setIdRack(null);
+                listaCopiasCopia.setUnRack(null);
                 listaCopiasCopia = em.merge(listaCopiasCopia);
             }
             em.remove(rack);

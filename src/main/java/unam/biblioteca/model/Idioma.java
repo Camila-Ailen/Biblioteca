@@ -18,7 +18,7 @@ public class Idioma implements Serializable {
     private String nombre;
     
     //relaciones
-    @OneToMany (mappedBy = "idIdioma")
+    @OneToMany (mappedBy = "unIdioma")
     private ArrayList<Libro> listaLibros;
     
     //controladores, getters y setters

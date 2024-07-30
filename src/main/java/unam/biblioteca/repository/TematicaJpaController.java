@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package unam.biblioteca.repository;
 
 import java.io.Serializable;
@@ -15,7 +18,10 @@ import javax.persistence.Persistence;
 import unam.biblioteca.model.Tematica;
 import unam.biblioteca.repository.exceptions.NonexistentEntityException;
 
-
+/**
+ *
+ * @author camilaailen
+ */
 public class TematicaJpaController implements Serializable {
 
     public TematicaJpaController(EntityManagerFactory emf) {
@@ -48,12 +54,12 @@ public class TematicaJpaController implements Serializable {
             tematica.setListaLibros(attachedListaLibros);
             em.persist(tematica);
             for (Libro listaLibrosLibro : tematica.getListaLibros()) {
-                Tematica oldIdTematicaOfListaLibrosLibro = listaLibrosLibro.getIdTematica();
-                listaLibrosLibro.setIdTematica(tematica);
+                Tematica oldUnTematicaOfListaLibrosLibro = listaLibrosLibro.getUnTematica();
+                listaLibrosLibro.setUnTematica(tematica);
                 listaLibrosLibro = em.merge(listaLibrosLibro);
-                if (oldIdTematicaOfListaLibrosLibro != null) {
-                    oldIdTematicaOfListaLibrosLibro.getListaLibros().remove(listaLibrosLibro);
-                    oldIdTematicaOfListaLibrosLibro = em.merge(oldIdTematicaOfListaLibrosLibro);
+                if (oldUnTematicaOfListaLibrosLibro != null) {
+                    oldUnTematicaOfListaLibrosLibro.getListaLibros().remove(listaLibrosLibro);
+                    oldUnTematicaOfListaLibrosLibro = em.merge(oldUnTematicaOfListaLibrosLibro);
                 }
             }
             em.getTransaction().commit();
@@ -82,18 +88,18 @@ public class TematicaJpaController implements Serializable {
             tematica = em.merge(tematica);
             for (Libro listaLibrosOldLibro : listaLibrosOld) {
                 if (!listaLibrosNew.contains(listaLibrosOldLibro)) {
-                    listaLibrosOldLibro.setIdTematica(null);
+                    listaLibrosOldLibro.setUnTematica(null);
                     listaLibrosOldLibro = em.merge(listaLibrosOldLibro);
                 }
             }
             for (Libro listaLibrosNewLibro : listaLibrosNew) {
                 if (!listaLibrosOld.contains(listaLibrosNewLibro)) {
-                    Tematica oldIdTematicaOfListaLibrosNewLibro = listaLibrosNewLibro.getIdTematica();
-                    listaLibrosNewLibro.setIdTematica(tematica);
+                    Tematica oldUnTematicaOfListaLibrosNewLibro = listaLibrosNewLibro.getUnTematica();
+                    listaLibrosNewLibro.setUnTematica(tematica);
                     listaLibrosNewLibro = em.merge(listaLibrosNewLibro);
-                    if (oldIdTematicaOfListaLibrosNewLibro != null && !oldIdTematicaOfListaLibrosNewLibro.equals(tematica)) {
-                        oldIdTematicaOfListaLibrosNewLibro.getListaLibros().remove(listaLibrosNewLibro);
-                        oldIdTematicaOfListaLibrosNewLibro = em.merge(oldIdTematicaOfListaLibrosNewLibro);
+                    if (oldUnTematicaOfListaLibrosNewLibro != null && !oldUnTematicaOfListaLibrosNewLibro.equals(tematica)) {
+                        oldUnTematicaOfListaLibrosNewLibro.getListaLibros().remove(listaLibrosNewLibro);
+                        oldUnTematicaOfListaLibrosNewLibro = em.merge(oldUnTematicaOfListaLibrosNewLibro);
                     }
                 }
             }
@@ -128,7 +134,7 @@ public class TematicaJpaController implements Serializable {
             }
             ArrayList<Libro> listaLibros = tematica.getListaLibros();
             for (Libro listaLibrosLibro : listaLibros) {
-                listaLibrosLibro.setIdTematica(null);
+                listaLibrosLibro.setUnTematica(null);
                 listaLibrosLibro = em.merge(listaLibrosLibro);
             }
             em.remove(tematica);

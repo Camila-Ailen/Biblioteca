@@ -30,14 +30,14 @@ public class Copia implements Serializable {
     
     //relaciones
     @ManyToOne
-    @JoinColumn(name="id")
-    private Rack idRack;
+    @JoinColumn(name="fk_rack")
+    private Rack unRack;
     
     @ManyToOne
-    @JoinColumn(name="id")
-    private Libro idLibro;
+    @JoinColumn(name="fk_libro")
+    private Libro unLibro;
     
-    @OneToMany (mappedBy = "idCopia")
+    @OneToMany (mappedBy = "unCopia")
     private ArrayList<Prestamo> listaPrestamos;
     
     //definiciones de los enums
@@ -53,15 +53,17 @@ public class Copia implements Serializable {
     public Copia() {
     }
 
-    public Copia(int id, boolean referencia, Tipo tipo, Estado estado, Rack idRack, Libro idLibro, ArrayList<Prestamo> listaPrestamos) {
+    public Copia(int id, boolean referencia, Tipo tipo, Estado estado, Rack unRack, Libro unLibro, ArrayList<Prestamo> listaPrestamos) {
         this.id = id;
         this.referencia = referencia;
         this.tipo = tipo;
         this.estado = estado;
-        this.idRack = idRack;
-        this.idLibro = idLibro;
+        this.unRack = unRack;
+        this.unLibro = unLibro;
         this.listaPrestamos = listaPrestamos;
     }
+
+    
 
     public int getId() {
         return id;
@@ -95,20 +97,20 @@ public class Copia implements Serializable {
         this.estado = estado;
     }
 
-    public Rack getIdRack() {
-        return idRack;
+    public Rack getUnRack() {
+        return unRack;
     }
 
-    public void setIdRack(Rack idRack) {
-        this.idRack = idRack;
+    public void setUnRack(Rack unRack) {
+        this.unRack = unRack;
     }
 
-    public Libro getIdLibro() {
-        return idLibro;
+    public Libro getUnLibro() {
+        return unLibro;
     }
 
-    public void setIdLibro(Libro idLibro) {
-        this.idLibro = idLibro;
+    public void setUnLibro(Libro unLibro) {
+        this.unLibro = unLibro;
     }
 
     public ArrayList<Prestamo> getListaPrestamos() {
@@ -118,6 +120,8 @@ public class Copia implements Serializable {
     public void setListaPrestamos(ArrayList<Prestamo> listaPrestamos) {
         this.listaPrestamos = listaPrestamos;
     }
+
+   
     
     
     

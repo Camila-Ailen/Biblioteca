@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package unam.biblioteca.repository;
 
 import java.io.Serializable;
@@ -15,7 +18,10 @@ import javax.persistence.Persistence;
 import unam.biblioteca.model.Autor;
 import unam.biblioteca.repository.exceptions.NonexistentEntityException;
 
-
+/**
+ *
+ * @author camilaailen
+ */
 public class AutorJpaController implements Serializable {
 
     public AutorJpaController(EntityManagerFactory emf) {
@@ -48,12 +54,12 @@ public class AutorJpaController implements Serializable {
             autor.setListaLibros(attachedListaLibros);
             em.persist(autor);
             for (Libro listaLibrosLibro : autor.getListaLibros()) {
-                Autor oldIdAutorOfListaLibrosLibro = listaLibrosLibro.getIdAutor();
-                listaLibrosLibro.setIdAutor(autor);
+                Autor oldUnAutorOfListaLibrosLibro = listaLibrosLibro.getUnAutor();
+                listaLibrosLibro.setUnAutor(autor);
                 listaLibrosLibro = em.merge(listaLibrosLibro);
-                if (oldIdAutorOfListaLibrosLibro != null) {
-                    oldIdAutorOfListaLibrosLibro.getListaLibros().remove(listaLibrosLibro);
-                    oldIdAutorOfListaLibrosLibro = em.merge(oldIdAutorOfListaLibrosLibro);
+                if (oldUnAutorOfListaLibrosLibro != null) {
+                    oldUnAutorOfListaLibrosLibro.getListaLibros().remove(listaLibrosLibro);
+                    oldUnAutorOfListaLibrosLibro = em.merge(oldUnAutorOfListaLibrosLibro);
                 }
             }
             em.getTransaction().commit();
@@ -82,18 +88,18 @@ public class AutorJpaController implements Serializable {
             autor = em.merge(autor);
             for (Libro listaLibrosOldLibro : listaLibrosOld) {
                 if (!listaLibrosNew.contains(listaLibrosOldLibro)) {
-                    listaLibrosOldLibro.setIdAutor(null);
+                    listaLibrosOldLibro.setUnAutor(null);
                     listaLibrosOldLibro = em.merge(listaLibrosOldLibro);
                 }
             }
             for (Libro listaLibrosNewLibro : listaLibrosNew) {
                 if (!listaLibrosOld.contains(listaLibrosNewLibro)) {
-                    Autor oldIdAutorOfListaLibrosNewLibro = listaLibrosNewLibro.getIdAutor();
-                    listaLibrosNewLibro.setIdAutor(autor);
+                    Autor oldUnAutorOfListaLibrosNewLibro = listaLibrosNewLibro.getUnAutor();
+                    listaLibrosNewLibro.setUnAutor(autor);
                     listaLibrosNewLibro = em.merge(listaLibrosNewLibro);
-                    if (oldIdAutorOfListaLibrosNewLibro != null && !oldIdAutorOfListaLibrosNewLibro.equals(autor)) {
-                        oldIdAutorOfListaLibrosNewLibro.getListaLibros().remove(listaLibrosNewLibro);
-                        oldIdAutorOfListaLibrosNewLibro = em.merge(oldIdAutorOfListaLibrosNewLibro);
+                    if (oldUnAutorOfListaLibrosNewLibro != null && !oldUnAutorOfListaLibrosNewLibro.equals(autor)) {
+                        oldUnAutorOfListaLibrosNewLibro.getListaLibros().remove(listaLibrosNewLibro);
+                        oldUnAutorOfListaLibrosNewLibro = em.merge(oldUnAutorOfListaLibrosNewLibro);
                     }
                 }
             }
@@ -128,7 +134,7 @@ public class AutorJpaController implements Serializable {
             }
             ArrayList<Libro> listaLibros = autor.getListaLibros();
             for (Libro listaLibrosLibro : listaLibros) {
-                listaLibrosLibro.setIdAutor(null);
+                listaLibrosLibro.setUnAutor(null);
                 listaLibrosLibro = em.merge(listaLibrosLibro);
             }
             em.remove(autor);

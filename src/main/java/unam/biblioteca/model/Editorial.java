@@ -18,7 +18,7 @@ public class Editorial implements Serializable {
     private String nombre;
     
     //relaciones
-    @OneToMany (mappedBy = "idEditorial")
+    @OneToMany (mappedBy = "unEditorial")
     private ArrayList<Libro> listaLibros;
     
     //controladores, getters y setters

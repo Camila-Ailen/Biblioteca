@@ -27,26 +27,28 @@ public class Prestamo implements Serializable {
     
     //relaciones
     @ManyToOne
-    @JoinColumn(name="id")
-    private Miembro idMiembro;
+    @JoinColumn(name="fk_miembro")
+    private Miembro unMiembro;
     
     @ManyToOne
-    @JoinColumn(name="id")
-    private Copia idCopia;
+    @JoinColumn(name="fk_copia")
+    private Copia unCopia;
     
     //controladores, getters y setters
 
     public Prestamo() {
     }
 
-    public Prestamo(int id, Date fechaRetiro, Date fechaDevuelto, double multa, Miembro idMiembro, Copia idCopia) {
+    public Prestamo(int id, Date fechaRetiro, Date fechaDevuelto, double multa, Miembro unMiembro, Copia unCopia) {
         this.id = id;
         this.fechaRetiro = fechaRetiro;
         this.fechaDevuelto = fechaDevuelto;
         this.multa = multa;
-        this.idMiembro = idMiembro;
-        this.idCopia = idCopia;
+        this.unMiembro = unMiembro;
+        this.unCopia = unCopia;
     }
+
+    
 
     public int getId() {
         return id;
@@ -80,21 +82,23 @@ public class Prestamo implements Serializable {
         this.multa = multa;
     }
 
-    public Miembro getIdMiembro() {
-        return idMiembro;
+    public Miembro getUnMiembro() {
+        return unMiembro;
     }
 
-    public void setIdMiembro(Miembro idMiembro) {
-        this.idMiembro = idMiembro;
+    public void setUnMiembro(Miembro unMiembro) {
+        this.unMiembro = unMiembro;
     }
 
-    public Copia getIdCopia() {
-        return idCopia;
+    public Copia getUnCopia() {
+        return unCopia;
     }
 
-    public void setIdCopia(Copia idCopia) {
-        this.idCopia = idCopia;
+    public void setUnCopia(Copia unCopia) {
+        this.unCopia = unCopia;
     }
+
+    
     
     
 }

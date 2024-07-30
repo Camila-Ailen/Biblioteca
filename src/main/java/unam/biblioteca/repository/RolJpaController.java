@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package unam.biblioteca.repository;
 
 import java.io.Serializable;
@@ -15,7 +18,10 @@ import javax.persistence.Persistence;
 import unam.biblioteca.model.Rol;
 import unam.biblioteca.repository.exceptions.NonexistentEntityException;
 
-
+/**
+ *
+ * @author camilaailen
+ */
 public class RolJpaController implements Serializable {
 
     public RolJpaController(EntityManagerFactory emf) {
@@ -48,12 +54,12 @@ public class RolJpaController implements Serializable {
             rol.setListaMiembros(attachedListaMiembros);
             em.persist(rol);
             for (Miembro listaMiembrosMiembro : rol.getListaMiembros()) {
-                Rol oldIdRolOfListaMiembrosMiembro = listaMiembrosMiembro.getIdRol();
-                listaMiembrosMiembro.setIdRol(rol);
+                Rol oldUnRolOfListaMiembrosMiembro = listaMiembrosMiembro.getUnRol();
+                listaMiembrosMiembro.setUnRol(rol);
                 listaMiembrosMiembro = em.merge(listaMiembrosMiembro);
-                if (oldIdRolOfListaMiembrosMiembro != null) {
-                    oldIdRolOfListaMiembrosMiembro.getListaMiembros().remove(listaMiembrosMiembro);
-                    oldIdRolOfListaMiembrosMiembro = em.merge(oldIdRolOfListaMiembrosMiembro);
+                if (oldUnRolOfListaMiembrosMiembro != null) {
+                    oldUnRolOfListaMiembrosMiembro.getListaMiembros().remove(listaMiembrosMiembro);
+                    oldUnRolOfListaMiembrosMiembro = em.merge(oldUnRolOfListaMiembrosMiembro);
                 }
             }
             em.getTransaction().commit();
@@ -82,18 +88,18 @@ public class RolJpaController implements Serializable {
             rol = em.merge(rol);
             for (Miembro listaMiembrosOldMiembro : listaMiembrosOld) {
                 if (!listaMiembrosNew.contains(listaMiembrosOldMiembro)) {
-                    listaMiembrosOldMiembro.setIdRol(null);
+                    listaMiembrosOldMiembro.setUnRol(null);
                     listaMiembrosOldMiembro = em.merge(listaMiembrosOldMiembro);
                 }
             }
             for (Miembro listaMiembrosNewMiembro : listaMiembrosNew) {
                 if (!listaMiembrosOld.contains(listaMiembrosNewMiembro)) {
-                    Rol oldIdRolOfListaMiembrosNewMiembro = listaMiembrosNewMiembro.getIdRol();
-                    listaMiembrosNewMiembro.setIdRol(rol);
+                    Rol oldUnRolOfListaMiembrosNewMiembro = listaMiembrosNewMiembro.getUnRol();
+                    listaMiembrosNewMiembro.setUnRol(rol);
                     listaMiembrosNewMiembro = em.merge(listaMiembrosNewMiembro);
-                    if (oldIdRolOfListaMiembrosNewMiembro != null && !oldIdRolOfListaMiembrosNewMiembro.equals(rol)) {
-                        oldIdRolOfListaMiembrosNewMiembro.getListaMiembros().remove(listaMiembrosNewMiembro);
-                        oldIdRolOfListaMiembrosNewMiembro = em.merge(oldIdRolOfListaMiembrosNewMiembro);
+                    if (oldUnRolOfListaMiembrosNewMiembro != null && !oldUnRolOfListaMiembrosNewMiembro.equals(rol)) {
+                        oldUnRolOfListaMiembrosNewMiembro.getListaMiembros().remove(listaMiembrosNewMiembro);
+                        oldUnRolOfListaMiembrosNewMiembro = em.merge(oldUnRolOfListaMiembrosNewMiembro);
                     }
                 }
             }
@@ -128,7 +134,7 @@ public class RolJpaController implements Serializable {
             }
             ArrayList<Miembro> listaMiembros = rol.getListaMiembros();
             for (Miembro listaMiembrosMiembro : listaMiembros) {
-                listaMiembrosMiembro.setIdRol(null);
+                listaMiembrosMiembro.setUnRol(null);
                 listaMiembrosMiembro = em.merge(listaMiembrosMiembro);
             }
             em.remove(rol);

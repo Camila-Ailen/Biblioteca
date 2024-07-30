@@ -18,7 +18,7 @@ public class Rack implements Serializable {
     private String descripcion;
     
     //relaciones
-    @OneToMany (mappedBy = "idRack")
+    @OneToMany (mappedBy = "unRack")
     private ArrayList<Copia> listaCopias;
     
     //controladores, getters y setters

@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package unam.biblioteca.repository;
 
 import java.io.Serializable;
@@ -15,7 +18,10 @@ import javax.persistence.Persistence;
 import unam.biblioteca.model.Editorial;
 import unam.biblioteca.repository.exceptions.NonexistentEntityException;
 
-
+/**
+ *
+ * @author camilaailen
+ */
 public class EditorialJpaController implements Serializable {
 
     public EditorialJpaController(EntityManagerFactory emf) {
@@ -48,12 +54,12 @@ public class EditorialJpaController implements Serializable {
             editorial.setListaLibros(attachedListaLibros);
             em.persist(editorial);
             for (Libro listaLibrosLibro : editorial.getListaLibros()) {
-                Editorial oldIdEditorialOfListaLibrosLibro = listaLibrosLibro.getIdEditorial();
-                listaLibrosLibro.setIdEditorial(editorial);
+                Editorial oldUnEditorialOfListaLibrosLibro = listaLibrosLibro.getUnEditorial();
+                listaLibrosLibro.setUnEditorial(editorial);
                 listaLibrosLibro = em.merge(listaLibrosLibro);
-                if (oldIdEditorialOfListaLibrosLibro != null) {
-                    oldIdEditorialOfListaLibrosLibro.getListaLibros().remove(listaLibrosLibro);
-                    oldIdEditorialOfListaLibrosLibro = em.merge(oldIdEditorialOfListaLibrosLibro);
+                if (oldUnEditorialOfListaLibrosLibro != null) {
+                    oldUnEditorialOfListaLibrosLibro.getListaLibros().remove(listaLibrosLibro);
+                    oldUnEditorialOfListaLibrosLibro = em.merge(oldUnEditorialOfListaLibrosLibro);
                 }
             }
             em.getTransaction().commit();
@@ -82,18 +88,18 @@ public class EditorialJpaController implements Serializable {
             editorial = em.merge(editorial);
             for (Libro listaLibrosOldLibro : listaLibrosOld) {
                 if (!listaLibrosNew.contains(listaLibrosOldLibro)) {
-                    listaLibrosOldLibro.setIdEditorial(null);
+                    listaLibrosOldLibro.setUnEditorial(null);
                     listaLibrosOldLibro = em.merge(listaLibrosOldLibro);
                 }
             }
             for (Libro listaLibrosNewLibro : listaLibrosNew) {
                 if (!listaLibrosOld.contains(listaLibrosNewLibro)) {
-                    Editorial oldIdEditorialOfListaLibrosNewLibro = listaLibrosNewLibro.getIdEditorial();
-                    listaLibrosNewLibro.setIdEditorial(editorial);
+                    Editorial oldUnEditorialOfListaLibrosNewLibro = listaLibrosNewLibro.getUnEditorial();
+                    listaLibrosNewLibro.setUnEditorial(editorial);
                     listaLibrosNewLibro = em.merge(listaLibrosNewLibro);
-                    if (oldIdEditorialOfListaLibrosNewLibro != null && !oldIdEditorialOfListaLibrosNewLibro.equals(editorial)) {
-                        oldIdEditorialOfListaLibrosNewLibro.getListaLibros().remove(listaLibrosNewLibro);
-                        oldIdEditorialOfListaLibrosNewLibro = em.merge(oldIdEditorialOfListaLibrosNewLibro);
+                    if (oldUnEditorialOfListaLibrosNewLibro != null && !oldUnEditorialOfListaLibrosNewLibro.equals(editorial)) {
+                        oldUnEditorialOfListaLibrosNewLibro.getListaLibros().remove(listaLibrosNewLibro);
+                        oldUnEditorialOfListaLibrosNewLibro = em.merge(oldUnEditorialOfListaLibrosNewLibro);
                     }
                 }
             }
@@ -128,7 +134,7 @@ public class EditorialJpaController implements Serializable {
             }
             ArrayList<Libro> listaLibros = editorial.getListaLibros();
             for (Libro listaLibrosLibro : listaLibros) {
-                listaLibrosLibro.setIdEditorial(null);
+                listaLibrosLibro.setUnEditorial(null);
                 listaLibrosLibro = em.merge(listaLibrosLibro);
             }
             em.remove(editorial);

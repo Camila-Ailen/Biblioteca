@@ -19,7 +19,7 @@ public class Autor implements Serializable {
     private String apellido;
     
     //relaciones
-    @OneToMany (mappedBy = "idAutor")
+    @OneToMany (mappedBy = "unAutor")
     private ArrayList<Libro> listaLibros;
     
     //controladores, getters y setters

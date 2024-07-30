@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package unam.biblioteca.repository;
 
 import java.io.Serializable;
@@ -15,7 +18,10 @@ import unam.biblioteca.model.Copia;
 import unam.biblioteca.model.Prestamo;
 import unam.biblioteca.repository.exceptions.NonexistentEntityException;
 
-
+/**
+ *
+ * @author camilaailen
+ */
 public class PrestamoJpaController implements Serializable {
 
     public PrestamoJpaController(EntityManagerFactory emf) {
@@ -37,24 +43,24 @@ public class PrestamoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Miembro idMiembro = prestamo.getIdMiembro();
-            if (idMiembro != null) {
-                idMiembro = em.getReference(idMiembro.getClass(), idMiembro.getId());
-                prestamo.setIdMiembro(idMiembro);
+            Miembro unMiembro = prestamo.getUnMiembro();
+            if (unMiembro != null) {
+                unMiembro = em.getReference(unMiembro.getClass(), unMiembro.getId());
+                prestamo.setUnMiembro(unMiembro);
             }
-            Copia idCopia = prestamo.getIdCopia();
-            if (idCopia != null) {
-                idCopia = em.getReference(idCopia.getClass(), idCopia.getId());
-                prestamo.setIdCopia(idCopia);
+            Copia unCopia = prestamo.getUnCopia();
+            if (unCopia != null) {
+                unCopia = em.getReference(unCopia.getClass(), unCopia.getId());
+                prestamo.setUnCopia(unCopia);
             }
             em.persist(prestamo);
-            if (idMiembro != null) {
-                idMiembro.getListaPrestamos().add(prestamo);
-                idMiembro = em.merge(idMiembro);
+            if (unMiembro != null) {
+                unMiembro.getListaPrestamos().add(prestamo);
+                unMiembro = em.merge(unMiembro);
             }
-            if (idCopia != null) {
-                idCopia.getListaPrestamos().add(prestamo);
-                idCopia = em.merge(idCopia);
+            if (unCopia != null) {
+                unCopia.getListaPrestamos().add(prestamo);
+                unCopia = em.merge(unCopia);
             }
             em.getTransaction().commit();
         } finally {
@@ -70,34 +76,34 @@ public class PrestamoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Prestamo persistentPrestamo = em.find(Prestamo.class, prestamo.getId());
-            Miembro idMiembroOld = persistentPrestamo.getIdMiembro();
-            Miembro idMiembroNew = prestamo.getIdMiembro();
-            Copia idCopiaOld = persistentPrestamo.getIdCopia();
-            Copia idCopiaNew = prestamo.getIdCopia();
-            if (idMiembroNew != null) {
-                idMiembroNew = em.getReference(idMiembroNew.getClass(), idMiembroNew.getId());
-                prestamo.setIdMiembro(idMiembroNew);
+            Miembro unMiembroOld = persistentPrestamo.getUnMiembro();
+            Miembro unMiembroNew = prestamo.getUnMiembro();
+            Copia unCopiaOld = persistentPrestamo.getUnCopia();
+            Copia unCopiaNew = prestamo.getUnCopia();
+            if (unMiembroNew != null) {
+                unMiembroNew = em.getReference(unMiembroNew.getClass(), unMiembroNew.getId());
+                prestamo.setUnMiembro(unMiembroNew);
             }
-            if (idCopiaNew != null) {
-                idCopiaNew = em.getReference(idCopiaNew.getClass(), idCopiaNew.getId());
-                prestamo.setIdCopia(idCopiaNew);
+            if (unCopiaNew != null) {
+                unCopiaNew = em.getReference(unCopiaNew.getClass(), unCopiaNew.getId());
+                prestamo.setUnCopia(unCopiaNew);
             }
             prestamo = em.merge(prestamo);
-            if (idMiembroOld != null && !idMiembroOld.equals(idMiembroNew)) {
-                idMiembroOld.getListaPrestamos().remove(prestamo);
-                idMiembroOld = em.merge(idMiembroOld);
+            if (unMiembroOld != null && !unMiembroOld.equals(unMiembroNew)) {
+                unMiembroOld.getListaPrestamos().remove(prestamo);
+                unMiembroOld = em.merge(unMiembroOld);
             }
-            if (idMiembroNew != null && !idMiembroNew.equals(idMiembroOld)) {
-                idMiembroNew.getListaPrestamos().add(prestamo);
-                idMiembroNew = em.merge(idMiembroNew);
+            if (unMiembroNew != null && !unMiembroNew.equals(unMiembroOld)) {
+                unMiembroNew.getListaPrestamos().add(prestamo);
+                unMiembroNew = em.merge(unMiembroNew);
             }
-            if (idCopiaOld != null && !idCopiaOld.equals(idCopiaNew)) {
-                idCopiaOld.getListaPrestamos().remove(prestamo);
-                idCopiaOld = em.merge(idCopiaOld);
+            if (unCopiaOld != null && !unCopiaOld.equals(unCopiaNew)) {
+                unCopiaOld.getListaPrestamos().remove(prestamo);
+                unCopiaOld = em.merge(unCopiaOld);
             }
-            if (idCopiaNew != null && !idCopiaNew.equals(idCopiaOld)) {
-                idCopiaNew.getListaPrestamos().add(prestamo);
-                idCopiaNew = em.merge(idCopiaNew);
+            if (unCopiaNew != null && !unCopiaNew.equals(unCopiaOld)) {
+                unCopiaNew.getListaPrestamos().add(prestamo);
+                unCopiaNew = em.merge(unCopiaNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -128,15 +134,15 @@ public class PrestamoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The prestamo with id " + id + " no longer exists.", enfe);
             }
-            Miembro idMiembro = prestamo.getIdMiembro();
-            if (idMiembro != null) {
-                idMiembro.getListaPrestamos().remove(prestamo);
-                idMiembro = em.merge(idMiembro);
+            Miembro unMiembro = prestamo.getUnMiembro();
+            if (unMiembro != null) {
+                unMiembro.getListaPrestamos().remove(prestamo);
+                unMiembro = em.merge(unMiembro);
             }
-            Copia idCopia = prestamo.getIdCopia();
-            if (idCopia != null) {
-                idCopia.getListaPrestamos().remove(prestamo);
-                idCopia = em.merge(idCopia);
+            Copia unCopia = prestamo.getUnCopia();
+            if (unCopia != null) {
+                unCopia.getListaPrestamos().remove(prestamo);
+                unCopia = em.merge(unCopia);
             }
             em.remove(prestamo);
             em.getTransaction().commit();

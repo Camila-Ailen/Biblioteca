@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package unam.biblioteca.repository;
 
 import java.io.Serializable;
@@ -15,7 +18,10 @@ import javax.persistence.Persistence;
 import unam.biblioteca.model.Idioma;
 import unam.biblioteca.repository.exceptions.NonexistentEntityException;
 
-
+/**
+ *
+ * @author camilaailen
+ */
 public class IdiomaJpaController implements Serializable {
 
     public IdiomaJpaController(EntityManagerFactory emf) {
@@ -48,12 +54,12 @@ public class IdiomaJpaController implements Serializable {
             idioma.setListaLibros(attachedListaLibros);
             em.persist(idioma);
             for (Libro listaLibrosLibro : idioma.getListaLibros()) {
-                Idioma oldIdIdiomaOfListaLibrosLibro = listaLibrosLibro.getIdIdioma();
-                listaLibrosLibro.setIdIdioma(idioma);
+                Idioma oldUnIdiomaOfListaLibrosLibro = listaLibrosLibro.getUnIdioma();
+                listaLibrosLibro.setUnIdioma(idioma);
                 listaLibrosLibro = em.merge(listaLibrosLibro);
-                if (oldIdIdiomaOfListaLibrosLibro != null) {
-                    oldIdIdiomaOfListaLibrosLibro.getListaLibros().remove(listaLibrosLibro);
-                    oldIdIdiomaOfListaLibrosLibro = em.merge(oldIdIdiomaOfListaLibrosLibro);
+                if (oldUnIdiomaOfListaLibrosLibro != null) {
+                    oldUnIdiomaOfListaLibrosLibro.getListaLibros().remove(listaLibrosLibro);
+                    oldUnIdiomaOfListaLibrosLibro = em.merge(oldUnIdiomaOfListaLibrosLibro);
                 }
             }
             em.getTransaction().commit();
@@ -82,18 +88,18 @@ public class IdiomaJpaController implements Serializable {
             idioma = em.merge(idioma);
             for (Libro listaLibrosOldLibro : listaLibrosOld) {
                 if (!listaLibrosNew.contains(listaLibrosOldLibro)) {
-                    listaLibrosOldLibro.setIdIdioma(null);
+                    listaLibrosOldLibro.setUnIdioma(null);
                     listaLibrosOldLibro = em.merge(listaLibrosOldLibro);
                 }
             }
             for (Libro listaLibrosNewLibro : listaLibrosNew) {
                 if (!listaLibrosOld.contains(listaLibrosNewLibro)) {
-                    Idioma oldIdIdiomaOfListaLibrosNewLibro = listaLibrosNewLibro.getIdIdioma();
-                    listaLibrosNewLibro.setIdIdioma(idioma);
+                    Idioma oldUnIdiomaOfListaLibrosNewLibro = listaLibrosNewLibro.getUnIdioma();
+                    listaLibrosNewLibro.setUnIdioma(idioma);
                     listaLibrosNewLibro = em.merge(listaLibrosNewLibro);
-                    if (oldIdIdiomaOfListaLibrosNewLibro != null && !oldIdIdiomaOfListaLibrosNewLibro.equals(idioma)) {
-                        oldIdIdiomaOfListaLibrosNewLibro.getListaLibros().remove(listaLibrosNewLibro);
-                        oldIdIdiomaOfListaLibrosNewLibro = em.merge(oldIdIdiomaOfListaLibrosNewLibro);
+                    if (oldUnIdiomaOfListaLibrosNewLibro != null && !oldUnIdiomaOfListaLibrosNewLibro.equals(idioma)) {
+                        oldUnIdiomaOfListaLibrosNewLibro.getListaLibros().remove(listaLibrosNewLibro);
+                        oldUnIdiomaOfListaLibrosNewLibro = em.merge(oldUnIdiomaOfListaLibrosNewLibro);
                     }
                 }
             }
@@ -128,7 +134,7 @@ public class IdiomaJpaController implements Serializable {
             }
             ArrayList<Libro> listaLibros = idioma.getListaLibros();
             for (Libro listaLibrosLibro : listaLibros) {
-                listaLibrosLibro.setIdIdioma(null);
+                listaLibrosLibro.setUnIdioma(null);
                 listaLibrosLibro = em.merge(listaLibrosLibro);
             }
             em.remove(idioma);

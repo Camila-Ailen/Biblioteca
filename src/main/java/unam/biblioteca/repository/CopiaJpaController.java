@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package unam.biblioteca.repository;
 
 import java.io.Serializable;
@@ -17,7 +20,10 @@ import javax.persistence.Persistence;
 import unam.biblioteca.model.Copia;
 import unam.biblioteca.repository.exceptions.NonexistentEntityException;
 
-
+/**
+ *
+ * @author camilaailen
+ */
 public class CopiaJpaController implements Serializable {
 
     public CopiaJpaController(EntityManagerFactory emf) {
@@ -42,15 +48,15 @@ public class CopiaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Rack idRack = copia.getIdRack();
-            if (idRack != null) {
-                idRack = em.getReference(idRack.getClass(), idRack.getId());
-                copia.setIdRack(idRack);
+            Rack unRack = copia.getUnRack();
+            if (unRack != null) {
+                unRack = em.getReference(unRack.getClass(), unRack.getId());
+                copia.setUnRack(unRack);
             }
-            Libro idLibro = copia.getIdLibro();
-            if (idLibro != null) {
-                idLibro = em.getReference(idLibro.getClass(), idLibro.getId());
-                copia.setIdLibro(idLibro);
+            Libro unLibro = copia.getUnLibro();
+            if (unLibro != null) {
+                unLibro = em.getReference(unLibro.getClass(), unLibro.getId());
+                copia.setUnLibro(unLibro);
             }
             ArrayList<Prestamo> attachedListaPrestamos = new ArrayList<Prestamo>();
             for (Prestamo listaPrestamosPrestamoToAttach : copia.getListaPrestamos()) {
@@ -59,21 +65,21 @@ public class CopiaJpaController implements Serializable {
             }
             copia.setListaPrestamos(attachedListaPrestamos);
             em.persist(copia);
-            if (idRack != null) {
-                idRack.getListaCopias().add(copia);
-                idRack = em.merge(idRack);
+            if (unRack != null) {
+                unRack.getListaCopias().add(copia);
+                unRack = em.merge(unRack);
             }
-            if (idLibro != null) {
-                idLibro.getListaCopias().add(copia);
-                idLibro = em.merge(idLibro);
+            if (unLibro != null) {
+                unLibro.getListaCopias().add(copia);
+                unLibro = em.merge(unLibro);
             }
             for (Prestamo listaPrestamosPrestamo : copia.getListaPrestamos()) {
-                Copia oldIdCopiaOfListaPrestamosPrestamo = listaPrestamosPrestamo.getIdCopia();
-                listaPrestamosPrestamo.setIdCopia(copia);
+                Copia oldUnCopiaOfListaPrestamosPrestamo = listaPrestamosPrestamo.getUnCopia();
+                listaPrestamosPrestamo.setUnCopia(copia);
                 listaPrestamosPrestamo = em.merge(listaPrestamosPrestamo);
-                if (oldIdCopiaOfListaPrestamosPrestamo != null) {
-                    oldIdCopiaOfListaPrestamosPrestamo.getListaPrestamos().remove(listaPrestamosPrestamo);
-                    oldIdCopiaOfListaPrestamosPrestamo = em.merge(oldIdCopiaOfListaPrestamosPrestamo);
+                if (oldUnCopiaOfListaPrestamosPrestamo != null) {
+                    oldUnCopiaOfListaPrestamosPrestamo.getListaPrestamos().remove(listaPrestamosPrestamo);
+                    oldUnCopiaOfListaPrestamosPrestamo = em.merge(oldUnCopiaOfListaPrestamosPrestamo);
                 }
             }
             em.getTransaction().commit();
@@ -90,19 +96,19 @@ public class CopiaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Copia persistentCopia = em.find(Copia.class, copia.getId());
-            Rack idRackOld = persistentCopia.getIdRack();
-            Rack idRackNew = copia.getIdRack();
-            Libro idLibroOld = persistentCopia.getIdLibro();
-            Libro idLibroNew = copia.getIdLibro();
+            Rack unRackOld = persistentCopia.getUnRack();
+            Rack unRackNew = copia.getUnRack();
+            Libro unLibroOld = persistentCopia.getUnLibro();
+            Libro unLibroNew = copia.getUnLibro();
             ArrayList<Prestamo> listaPrestamosOld = persistentCopia.getListaPrestamos();
             ArrayList<Prestamo> listaPrestamosNew = copia.getListaPrestamos();
-            if (idRackNew != null) {
-                idRackNew = em.getReference(idRackNew.getClass(), idRackNew.getId());
-                copia.setIdRack(idRackNew);
+            if (unRackNew != null) {
+                unRackNew = em.getReference(unRackNew.getClass(), unRackNew.getId());
+                copia.setUnRack(unRackNew);
             }
-            if (idLibroNew != null) {
-                idLibroNew = em.getReference(idLibroNew.getClass(), idLibroNew.getId());
-                copia.setIdLibro(idLibroNew);
+            if (unLibroNew != null) {
+                unLibroNew = em.getReference(unLibroNew.getClass(), unLibroNew.getId());
+                copia.setUnLibro(unLibroNew);
             }
             ArrayList<Prestamo> attachedListaPrestamosNew = new ArrayList<Prestamo>();
             for (Prestamo listaPrestamosNewPrestamoToAttach : listaPrestamosNew) {
@@ -112,36 +118,36 @@ public class CopiaJpaController implements Serializable {
             listaPrestamosNew = attachedListaPrestamosNew;
             copia.setListaPrestamos(listaPrestamosNew);
             copia = em.merge(copia);
-            if (idRackOld != null && !idRackOld.equals(idRackNew)) {
-                idRackOld.getListaCopias().remove(copia);
-                idRackOld = em.merge(idRackOld);
+            if (unRackOld != null && !unRackOld.equals(unRackNew)) {
+                unRackOld.getListaCopias().remove(copia);
+                unRackOld = em.merge(unRackOld);
             }
-            if (idRackNew != null && !idRackNew.equals(idRackOld)) {
-                idRackNew.getListaCopias().add(copia);
-                idRackNew = em.merge(idRackNew);
+            if (unRackNew != null && !unRackNew.equals(unRackOld)) {
+                unRackNew.getListaCopias().add(copia);
+                unRackNew = em.merge(unRackNew);
             }
-            if (idLibroOld != null && !idLibroOld.equals(idLibroNew)) {
-                idLibroOld.getListaCopias().remove(copia);
-                idLibroOld = em.merge(idLibroOld);
+            if (unLibroOld != null && !unLibroOld.equals(unLibroNew)) {
+                unLibroOld.getListaCopias().remove(copia);
+                unLibroOld = em.merge(unLibroOld);
             }
-            if (idLibroNew != null && !idLibroNew.equals(idLibroOld)) {
-                idLibroNew.getListaCopias().add(copia);
-                idLibroNew = em.merge(idLibroNew);
+            if (unLibroNew != null && !unLibroNew.equals(unLibroOld)) {
+                unLibroNew.getListaCopias().add(copia);
+                unLibroNew = em.merge(unLibroNew);
             }
             for (Prestamo listaPrestamosOldPrestamo : listaPrestamosOld) {
                 if (!listaPrestamosNew.contains(listaPrestamosOldPrestamo)) {
-                    listaPrestamosOldPrestamo.setIdCopia(null);
+                    listaPrestamosOldPrestamo.setUnCopia(null);
                     listaPrestamosOldPrestamo = em.merge(listaPrestamosOldPrestamo);
                 }
             }
             for (Prestamo listaPrestamosNewPrestamo : listaPrestamosNew) {
                 if (!listaPrestamosOld.contains(listaPrestamosNewPrestamo)) {
-                    Copia oldIdCopiaOfListaPrestamosNewPrestamo = listaPrestamosNewPrestamo.getIdCopia();
-                    listaPrestamosNewPrestamo.setIdCopia(copia);
+                    Copia oldUnCopiaOfListaPrestamosNewPrestamo = listaPrestamosNewPrestamo.getUnCopia();
+                    listaPrestamosNewPrestamo.setUnCopia(copia);
                     listaPrestamosNewPrestamo = em.merge(listaPrestamosNewPrestamo);
-                    if (oldIdCopiaOfListaPrestamosNewPrestamo != null && !oldIdCopiaOfListaPrestamosNewPrestamo.equals(copia)) {
-                        oldIdCopiaOfListaPrestamosNewPrestamo.getListaPrestamos().remove(listaPrestamosNewPrestamo);
-                        oldIdCopiaOfListaPrestamosNewPrestamo = em.merge(oldIdCopiaOfListaPrestamosNewPrestamo);
+                    if (oldUnCopiaOfListaPrestamosNewPrestamo != null && !oldUnCopiaOfListaPrestamosNewPrestamo.equals(copia)) {
+                        oldUnCopiaOfListaPrestamosNewPrestamo.getListaPrestamos().remove(listaPrestamosNewPrestamo);
+                        oldUnCopiaOfListaPrestamosNewPrestamo = em.merge(oldUnCopiaOfListaPrestamosNewPrestamo);
                     }
                 }
             }
@@ -174,19 +180,19 @@ public class CopiaJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The copia with id " + id + " no longer exists.", enfe);
             }
-            Rack idRack = copia.getIdRack();
-            if (idRack != null) {
-                idRack.getListaCopias().remove(copia);
-                idRack = em.merge(idRack);
+            Rack unRack = copia.getUnRack();
+            if (unRack != null) {
+                unRack.getListaCopias().remove(copia);
+                unRack = em.merge(unRack);
             }
-            Libro idLibro = copia.getIdLibro();
-            if (idLibro != null) {
-                idLibro.getListaCopias().remove(copia);
-                idLibro = em.merge(idLibro);
+            Libro unLibro = copia.getUnLibro();
+            if (unLibro != null) {
+                unLibro.getListaCopias().remove(copia);
+                unLibro = em.merge(unLibro);
             }
             ArrayList<Prestamo> listaPrestamos = copia.getListaPrestamos();
             for (Prestamo listaPrestamosPrestamo : listaPrestamos) {
-                listaPrestamosPrestamo.setIdCopia(null);
+                listaPrestamosPrestamo.setUnCopia(null);
                 listaPrestamosPrestamo = em.merge(listaPrestamosPrestamo);
             }
             em.remove(copia);

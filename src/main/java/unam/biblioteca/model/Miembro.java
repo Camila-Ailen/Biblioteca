@@ -30,12 +30,12 @@ public class Miembro implements Serializable {
     private Estado estado;
 
     //relaciones
-    @OneToMany (mappedBy = "idMiembro")
+    @OneToMany (mappedBy = "unMiembro")
     private ArrayList<Prestamo> listaPrestamos;
     
     @ManyToOne
-    @JoinColumn(name="id")
-    private Rol idRol;
+    @JoinColumn(name="fk_rol")
+    private Rol unRol;
     
     //definiciones de los enum
     public enum Estado {
@@ -47,7 +47,7 @@ public class Miembro implements Serializable {
     public Miembro() {
     }
 
-    public Miembro(int id, String clave, String apellido, String nombre, String telefono, String email, Estado estado, ArrayList<Prestamo> listaPrestamos, Rol idRol) {
+    public Miembro(int id, String clave, String apellido, String nombre, String telefono, String email, Estado estado, ArrayList<Prestamo> listaPrestamos, Rol unRol) {
         this.id = id;
         this.clave = clave;
         this.apellido = apellido;
@@ -56,7 +56,7 @@ public class Miembro implements Serializable {
         this.email = email;
         this.estado = estado;
         this.listaPrestamos = listaPrestamos;
-        this.idRol = idRol;
+        this.unRol = unRol;
     }
 
     public int getId() {
@@ -123,13 +123,15 @@ public class Miembro implements Serializable {
         this.listaPrestamos = listaPrestamos;
     }
 
-    public Rol getIdRol() {
-        return idRol;
+    public Rol getUnRol() {
+        return unRol;
     }
 
-    public void setIdRol(Rol idRol) {
-        this.idRol = idRol;
+    public void setUnRol(Rol unRol) {
+        this.unRol = unRol;
     }
+
+    
     
     
 }

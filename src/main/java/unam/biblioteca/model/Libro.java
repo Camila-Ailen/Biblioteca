@@ -23,22 +23,22 @@ public class Libro implements Serializable {
     
     //relaciones
     @ManyToOne
-    @JoinColumn(name="id")
-    private Tematica idTematica;
+    @JoinColumn(name="fk_tematica")
+    private Tematica unTematica;
     
     @ManyToOne
-    @JoinColumn(name="id")
-    private Autor idAutor;
+    @JoinColumn(name="fk_autor")
+    private Autor unAutor;
     
     @ManyToOne
-    @JoinColumn(name="id")
-    private Idioma idIdioma;
+    @JoinColumn(name="fk_idioma")
+    private Idioma unIdioma;
     
     @ManyToOne
-    @JoinColumn(name="id")
-    private Editorial idEditorial;
+    @JoinColumn(name="fk_editorial")
+    private Editorial unEditorial;
     
-    @OneToMany (mappedBy = "idLibro")
+    @OneToMany (mappedBy = "unLibro")
     private ArrayList<Copia> listaCopias;
     
     //controladores, getters y setters
@@ -46,17 +46,18 @@ public class Libro implements Serializable {
     public Libro() {
     }
 
-    public Libro(int id, String titulo, String isbn, double precio, Tematica idTematica, Autor idAutor, Idioma idIdioma, Editorial idEditorial, ArrayList<Copia> listaCopias) {
+    public Libro(int id, String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
         this.id = id;
         this.titulo = titulo;
         this.isbn = isbn;
         this.precio = precio;
-        this.idTematica = idTematica;
-        this.idAutor = idAutor;
-        this.idIdioma = idIdioma;
-        this.idEditorial = idEditorial;
+        this.unTematica = unTematica;
+        this.unAutor = unAutor;
+        this.unIdioma = unIdioma;
+        this.unEditorial = unEditorial;
         this.listaCopias = listaCopias;
     }
+
 
     public int getId() {
         return id;
@@ -90,36 +91,36 @@ public class Libro implements Serializable {
         this.precio = precio;
     }
 
-    public Tematica getIdTematica() {
-        return idTematica;
+    public Tematica getUnTematica() {
+        return unTematica;
     }
 
-    public void setIdTematica(Tematica idTematica) {
-        this.idTematica = idTematica;
+    public void setUnTematica(Tematica unTematica) {
+        this.unTematica = unTematica;
     }
 
-    public Autor getIdAutor() {
-        return idAutor;
+    public Autor getUnAutor() {
+        return unAutor;
     }
 
-    public void setIdAutor(Autor idAutor) {
-        this.idAutor = idAutor;
+    public void setUnAutor(Autor unAutor) {
+        this.unAutor = unAutor;
     }
 
-    public Idioma getIdIdioma() {
-        return idIdioma;
+    public Idioma getUnIdioma() {
+        return unIdioma;
     }
 
-    public void setIdIdioma(Idioma idIdioma) {
-        this.idIdioma = idIdioma;
+    public void setUnIdioma(Idioma unIdioma) {
+        this.unIdioma = unIdioma;
     }
 
-    public Editorial getIdEditorial() {
-        return idEditorial;
+    public Editorial getUnEditorial() {
+        return unEditorial;
     }
 
-    public void setIdEditorial(Editorial idEditorial) {
-        this.idEditorial = idEditorial;
+    public void setUnEditorial(Editorial unEditorial) {
+        this.unEditorial = unEditorial;
     }
 
     public ArrayList<Copia> getListaCopias() {
@@ -129,7 +130,7 @@ public class Libro implements Serializable {
     public void setListaCopias(ArrayList<Copia> listaCopias) {
         this.listaCopias = listaCopias;
     }
-    
+
     
     
     

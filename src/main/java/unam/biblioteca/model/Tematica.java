@@ -18,7 +18,7 @@ public class Tematica implements Serializable {
     private String nombre;
     
     //relaciones
-    @OneToMany (mappedBy = "idTematica")
+    @OneToMany (mappedBy = "unTematica")
     private ArrayList<Libro> listaLibros;
     
     //controladores, getters y setters

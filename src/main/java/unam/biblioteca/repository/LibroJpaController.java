@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package unam.biblioteca.repository;
 
 import java.io.Serializable;
@@ -19,7 +22,10 @@ import javax.persistence.Persistence;
 import unam.biblioteca.model.Libro;
 import unam.biblioteca.repository.exceptions.NonexistentEntityException;
 
-
+/**
+ *
+ * @author camilaailen
+ */
 public class LibroJpaController implements Serializable {
 
     public LibroJpaController(EntityManagerFactory emf) {
@@ -44,25 +50,25 @@ public class LibroJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tematica idTematica = libro.getIdTematica();
-            if (idTematica != null) {
-                idTematica = em.getReference(idTematica.getClass(), idTematica.getId());
-                libro.setIdTematica(idTematica);
+            Tematica unTematica = libro.getUnTematica();
+            if (unTematica != null) {
+                unTematica = em.getReference(unTematica.getClass(), unTematica.getId());
+                libro.setUnTematica(unTematica);
             }
-            Autor idAutor = libro.getIdAutor();
-            if (idAutor != null) {
-                idAutor = em.getReference(idAutor.getClass(), idAutor.getId());
-                libro.setIdAutor(idAutor);
+            Autor unAutor = libro.getUnAutor();
+            if (unAutor != null) {
+                unAutor = em.getReference(unAutor.getClass(), unAutor.getId());
+                libro.setUnAutor(unAutor);
             }
-            Idioma idIdioma = libro.getIdIdioma();
-            if (idIdioma != null) {
-                idIdioma = em.getReference(idIdioma.getClass(), idIdioma.getId());
-                libro.setIdIdioma(idIdioma);
+            Idioma unIdioma = libro.getUnIdioma();
+            if (unIdioma != null) {
+                unIdioma = em.getReference(unIdioma.getClass(), unIdioma.getId());
+                libro.setUnIdioma(unIdioma);
             }
-            Editorial idEditorial = libro.getIdEditorial();
-            if (idEditorial != null) {
-                idEditorial = em.getReference(idEditorial.getClass(), idEditorial.getId());
-                libro.setIdEditorial(idEditorial);
+            Editorial unEditorial = libro.getUnEditorial();
+            if (unEditorial != null) {
+                unEditorial = em.getReference(unEditorial.getClass(), unEditorial.getId());
+                libro.setUnEditorial(unEditorial);
             }
             ArrayList<Copia> attachedListaCopias = new ArrayList<Copia>();
             for (Copia listaCopiasCopiaToAttach : libro.getListaCopias()) {
@@ -71,29 +77,29 @@ public class LibroJpaController implements Serializable {
             }
             libro.setListaCopias(attachedListaCopias);
             em.persist(libro);
-            if (idTematica != null) {
-                idTematica.getListaLibros().add(libro);
-                idTematica = em.merge(idTematica);
+            if (unTematica != null) {
+                unTematica.getListaLibros().add(libro);
+                unTematica = em.merge(unTematica);
             }
-            if (idAutor != null) {
-                idAutor.getListaLibros().add(libro);
-                idAutor = em.merge(idAutor);
+            if (unAutor != null) {
+                unAutor.getListaLibros().add(libro);
+                unAutor = em.merge(unAutor);
             }
-            if (idIdioma != null) {
-                idIdioma.getListaLibros().add(libro);
-                idIdioma = em.merge(idIdioma);
+            if (unIdioma != null) {
+                unIdioma.getListaLibros().add(libro);
+                unIdioma = em.merge(unIdioma);
             }
-            if (idEditorial != null) {
-                idEditorial.getListaLibros().add(libro);
-                idEditorial = em.merge(idEditorial);
+            if (unEditorial != null) {
+                unEditorial.getListaLibros().add(libro);
+                unEditorial = em.merge(unEditorial);
             }
             for (Copia listaCopiasCopia : libro.getListaCopias()) {
-                Libro oldIdLibroOfListaCopiasCopia = listaCopiasCopia.getIdLibro();
-                listaCopiasCopia.setIdLibro(libro);
+                Libro oldUnLibroOfListaCopiasCopia = listaCopiasCopia.getUnLibro();
+                listaCopiasCopia.setUnLibro(libro);
                 listaCopiasCopia = em.merge(listaCopiasCopia);
-                if (oldIdLibroOfListaCopiasCopia != null) {
-                    oldIdLibroOfListaCopiasCopia.getListaCopias().remove(listaCopiasCopia);
-                    oldIdLibroOfListaCopiasCopia = em.merge(oldIdLibroOfListaCopiasCopia);
+                if (oldUnLibroOfListaCopiasCopia != null) {
+                    oldUnLibroOfListaCopiasCopia.getListaCopias().remove(listaCopiasCopia);
+                    oldUnLibroOfListaCopiasCopia = em.merge(oldUnLibroOfListaCopiasCopia);
                 }
             }
             em.getTransaction().commit();
@@ -110,31 +116,31 @@ public class LibroJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Libro persistentLibro = em.find(Libro.class, libro.getId());
-            Tematica idTematicaOld = persistentLibro.getIdTematica();
-            Tematica idTematicaNew = libro.getIdTematica();
-            Autor idAutorOld = persistentLibro.getIdAutor();
-            Autor idAutorNew = libro.getIdAutor();
-            Idioma idIdiomaOld = persistentLibro.getIdIdioma();
-            Idioma idIdiomaNew = libro.getIdIdioma();
-            Editorial idEditorialOld = persistentLibro.getIdEditorial();
-            Editorial idEditorialNew = libro.getIdEditorial();
+            Tematica unTematicaOld = persistentLibro.getUnTematica();
+            Tematica unTematicaNew = libro.getUnTematica();
+            Autor unAutorOld = persistentLibro.getUnAutor();
+            Autor unAutorNew = libro.getUnAutor();
+            Idioma unIdiomaOld = persistentLibro.getUnIdioma();
+            Idioma unIdiomaNew = libro.getUnIdioma();
+            Editorial unEditorialOld = persistentLibro.getUnEditorial();
+            Editorial unEditorialNew = libro.getUnEditorial();
             ArrayList<Copia> listaCopiasOld = persistentLibro.getListaCopias();
             ArrayList<Copia> listaCopiasNew = libro.getListaCopias();
-            if (idTematicaNew != null) {
-                idTematicaNew = em.getReference(idTematicaNew.getClass(), idTematicaNew.getId());
-                libro.setIdTematica(idTematicaNew);
+            if (unTematicaNew != null) {
+                unTematicaNew = em.getReference(unTematicaNew.getClass(), unTematicaNew.getId());
+                libro.setUnTematica(unTematicaNew);
             }
-            if (idAutorNew != null) {
-                idAutorNew = em.getReference(idAutorNew.getClass(), idAutorNew.getId());
-                libro.setIdAutor(idAutorNew);
+            if (unAutorNew != null) {
+                unAutorNew = em.getReference(unAutorNew.getClass(), unAutorNew.getId());
+                libro.setUnAutor(unAutorNew);
             }
-            if (idIdiomaNew != null) {
-                idIdiomaNew = em.getReference(idIdiomaNew.getClass(), idIdiomaNew.getId());
-                libro.setIdIdioma(idIdiomaNew);
+            if (unIdiomaNew != null) {
+                unIdiomaNew = em.getReference(unIdiomaNew.getClass(), unIdiomaNew.getId());
+                libro.setUnIdioma(unIdiomaNew);
             }
-            if (idEditorialNew != null) {
-                idEditorialNew = em.getReference(idEditorialNew.getClass(), idEditorialNew.getId());
-                libro.setIdEditorial(idEditorialNew);
+            if (unEditorialNew != null) {
+                unEditorialNew = em.getReference(unEditorialNew.getClass(), unEditorialNew.getId());
+                libro.setUnEditorial(unEditorialNew);
             }
             ArrayList<Copia> attachedListaCopiasNew = new ArrayList<Copia>();
             for (Copia listaCopiasNewCopiaToAttach : listaCopiasNew) {
@@ -144,52 +150,52 @@ public class LibroJpaController implements Serializable {
             listaCopiasNew = attachedListaCopiasNew;
             libro.setListaCopias(listaCopiasNew);
             libro = em.merge(libro);
-            if (idTematicaOld != null && !idTematicaOld.equals(idTematicaNew)) {
-                idTematicaOld.getListaLibros().remove(libro);
-                idTematicaOld = em.merge(idTematicaOld);
+            if (unTematicaOld != null && !unTematicaOld.equals(unTematicaNew)) {
+                unTematicaOld.getListaLibros().remove(libro);
+                unTematicaOld = em.merge(unTematicaOld);
             }
-            if (idTematicaNew != null && !idTematicaNew.equals(idTematicaOld)) {
-                idTematicaNew.getListaLibros().add(libro);
-                idTematicaNew = em.merge(idTematicaNew);
+            if (unTematicaNew != null && !unTematicaNew.equals(unTematicaOld)) {
+                unTematicaNew.getListaLibros().add(libro);
+                unTematicaNew = em.merge(unTematicaNew);
             }
-            if (idAutorOld != null && !idAutorOld.equals(idAutorNew)) {
-                idAutorOld.getListaLibros().remove(libro);
-                idAutorOld = em.merge(idAutorOld);
+            if (unAutorOld != null && !unAutorOld.equals(unAutorNew)) {
+                unAutorOld.getListaLibros().remove(libro);
+                unAutorOld = em.merge(unAutorOld);
             }
-            if (idAutorNew != null && !idAutorNew.equals(idAutorOld)) {
-                idAutorNew.getListaLibros().add(libro);
-                idAutorNew = em.merge(idAutorNew);
+            if (unAutorNew != null && !unAutorNew.equals(unAutorOld)) {
+                unAutorNew.getListaLibros().add(libro);
+                unAutorNew = em.merge(unAutorNew);
             }
-            if (idIdiomaOld != null && !idIdiomaOld.equals(idIdiomaNew)) {
-                idIdiomaOld.getListaLibros().remove(libro);
-                idIdiomaOld = em.merge(idIdiomaOld);
+            if (unIdiomaOld != null && !unIdiomaOld.equals(unIdiomaNew)) {
+                unIdiomaOld.getListaLibros().remove(libro);
+                unIdiomaOld = em.merge(unIdiomaOld);
             }
-            if (idIdiomaNew != null && !idIdiomaNew.equals(idIdiomaOld)) {
-                idIdiomaNew.getListaLibros().add(libro);
-                idIdiomaNew = em.merge(idIdiomaNew);
+            if (unIdiomaNew != null && !unIdiomaNew.equals(unIdiomaOld)) {
+                unIdiomaNew.getListaLibros().add(libro);
+                unIdiomaNew = em.merge(unIdiomaNew);
             }
-            if (idEditorialOld != null && !idEditorialOld.equals(idEditorialNew)) {
-                idEditorialOld.getListaLibros().remove(libro);
-                idEditorialOld = em.merge(idEditorialOld);
+            if (unEditorialOld != null && !unEditorialOld.equals(unEditorialNew)) {
+                unEditorialOld.getListaLibros().remove(libro);
+                unEditorialOld = em.merge(unEditorialOld);
             }
-            if (idEditorialNew != null && !idEditorialNew.equals(idEditorialOld)) {
-                idEditorialNew.getListaLibros().add(libro);
-                idEditorialNew = em.merge(idEditorialNew);
+            if (unEditorialNew != null && !unEditorialNew.equals(unEditorialOld)) {
+                unEditorialNew.getListaLibros().add(libro);
+                unEditorialNew = em.merge(unEditorialNew);
             }
             for (Copia listaCopiasOldCopia : listaCopiasOld) {
                 if (!listaCopiasNew.contains(listaCopiasOldCopia)) {
-                    listaCopiasOldCopia.setIdLibro(null);
+                    listaCopiasOldCopia.setUnLibro(null);
                     listaCopiasOldCopia = em.merge(listaCopiasOldCopia);
                 }
             }
             for (Copia listaCopiasNewCopia : listaCopiasNew) {
                 if (!listaCopiasOld.contains(listaCopiasNewCopia)) {
-                    Libro oldIdLibroOfListaCopiasNewCopia = listaCopiasNewCopia.getIdLibro();
-                    listaCopiasNewCopia.setIdLibro(libro);
+                    Libro oldUnLibroOfListaCopiasNewCopia = listaCopiasNewCopia.getUnLibro();
+                    listaCopiasNewCopia.setUnLibro(libro);
                     listaCopiasNewCopia = em.merge(listaCopiasNewCopia);
-                    if (oldIdLibroOfListaCopiasNewCopia != null && !oldIdLibroOfListaCopiasNewCopia.equals(libro)) {
-                        oldIdLibroOfListaCopiasNewCopia.getListaCopias().remove(listaCopiasNewCopia);
-                        oldIdLibroOfListaCopiasNewCopia = em.merge(oldIdLibroOfListaCopiasNewCopia);
+                    if (oldUnLibroOfListaCopiasNewCopia != null && !oldUnLibroOfListaCopiasNewCopia.equals(libro)) {
+                        oldUnLibroOfListaCopiasNewCopia.getListaCopias().remove(listaCopiasNewCopia);
+                        oldUnLibroOfListaCopiasNewCopia = em.merge(oldUnLibroOfListaCopiasNewCopia);
                     }
                 }
             }
@@ -222,29 +228,29 @@ public class LibroJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The libro with id " + id + " no longer exists.", enfe);
             }
-            Tematica idTematica = libro.getIdTematica();
-            if (idTematica != null) {
-                idTematica.getListaLibros().remove(libro);
-                idTematica = em.merge(idTematica);
+            Tematica unTematica = libro.getUnTematica();
+            if (unTematica != null) {
+                unTematica.getListaLibros().remove(libro);
+                unTematica = em.merge(unTematica);
             }
-            Autor idAutor = libro.getIdAutor();
-            if (idAutor != null) {
-                idAutor.getListaLibros().remove(libro);
-                idAutor = em.merge(idAutor);
+            Autor unAutor = libro.getUnAutor();
+            if (unAutor != null) {
+                unAutor.getListaLibros().remove(libro);
+                unAutor = em.merge(unAutor);
             }
-            Idioma idIdioma = libro.getIdIdioma();
-            if (idIdioma != null) {
-                idIdioma.getListaLibros().remove(libro);
-                idIdioma = em.merge(idIdioma);
+            Idioma unIdioma = libro.getUnIdioma();
+            if (unIdioma != null) {
+                unIdioma.getListaLibros().remove(libro);
+                unIdioma = em.merge(unIdioma);
             }
-            Editorial idEditorial = libro.getIdEditorial();
-            if (idEditorial != null) {
-                idEditorial.getListaLibros().remove(libro);
-                idEditorial = em.merge(idEditorial);
+            Editorial unEditorial = libro.getUnEditorial();
+            if (unEditorial != null) {
+                unEditorial.getListaLibros().remove(libro);
+                unEditorial = em.merge(unEditorial);
             }
             ArrayList<Copia> listaCopias = libro.getListaCopias();
             for (Copia listaCopiasCopia : listaCopias) {
-                listaCopiasCopia.setIdLibro(null);
+                listaCopiasCopia.setUnLibro(null);
                 listaCopiasCopia = em.merge(listaCopiasCopia);
             }
             em.remove(libro);
