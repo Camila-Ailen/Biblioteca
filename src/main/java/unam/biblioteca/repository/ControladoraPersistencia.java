@@ -1,6 +1,8 @@
 
-package unam.biblioteca.controller;
+package unam.biblioteca.repository;
 
+import java.util.List;
+import unam.biblioteca.model.Miembro;
 import unam.biblioteca.repository.*;
 
 
@@ -16,5 +18,10 @@ public class ControladoraPersistencia {
     RackJpaController rackJpa = new RackJpaController();
     RolJpaController rolJpa = new RolJpaController();
     TematicaJpaController tematicaJpa = new TematicaJpaController();
+
+
+    public List<Miembro> traerMiembros() {
+        return miembroJpa.findMiembroEntities();
+    }
     
 }

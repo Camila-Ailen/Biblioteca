@@ -1,11 +1,15 @@
 
 package unam.biblioteca;
 
-import unam.biblioteca.controller.ControladoraPersistencia;
+import unam.biblioteca.view.Login;
 
 public class Biblioteca {
 
     public static void main(String[] args) {
-        ControladoraPersistencia control = new ControladoraPersistencia();
+        Login login = new Login();
+        login.setVisible(true);
+        login.setLocationRelativeTo(null);
+        
+        
     }
 }

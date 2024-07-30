@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="37de5ed0-0d6c-4251-a4c8-e94bb39c4703" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/unam/biblioteca/Biblioteca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/unam/biblioteca/Biblioteca.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Camila-Ailen"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Camila-Ailen/Biblioteca.git",
+    "accountId": "d32db8b9-cd04-4c4d-87c5-3fa3c5e74545"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2jwC1UiugsRrN5srEO19vfV5j5A" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Biblioteca.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "javafx",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/camilaailen/Documents/FACULTAD/POO1(2024)/Biblioteca"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Biblioteca" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="unam.biblioteca.Biblioteca" />
+      <module name="Biblioteca" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="unam.biblioteca.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Biblioteca" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="37de5ed0-0d6c-4251-a4c8-e94bb39c4703" name="Changes" comment="" />
+      <created>1722288536843</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1722288536843</updated>
+    </task>
+    <servers />
+  </component>
+</project>
