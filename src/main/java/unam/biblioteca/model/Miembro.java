@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -33,6 +34,7 @@ public class Miembro implements Serializable {
     private ArrayList<Prestamo> listaPrestamos;
     
     @ManyToOne
+    @JoinColumn(name="id")
     private Rol idRol;
     
     //definiciones de los enum

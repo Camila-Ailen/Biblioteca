@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -29,9 +30,11 @@ public class Copia implements Serializable {
     
     //relaciones
     @ManyToOne
+    @JoinColumn(name="id")
     private Rack idRack;
     
     @ManyToOne
+    @JoinColumn(name="id")
     private Libro idLibro;
     
     @OneToMany (mappedBy = "idCopia")

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -22,15 +23,19 @@ public class Libro implements Serializable {
     
     //relaciones
     @ManyToOne
+    @JoinColumn(name="id")
     private Tematica idTematica;
     
     @ManyToOne
+    @JoinColumn(name="id")
     private Autor idAutor;
     
     @ManyToOne
+    @JoinColumn(name="id")
     private Idioma idIdioma;
     
     @ManyToOne
+    @JoinColumn(name="id")
     private Editorial idEditorial;
     
     @OneToMany (mappedBy = "idLibro")
