@@ -4,34 +4,40 @@ import java.util.List;
 import unam.biblioteca.model.Miembro;
 import unam.biblioteca.repository.ControladoraPersistencia;
 
-public class ControladoraLogica {
+public class LoginController {
     
     ControladoraPersistencia controlPersistencia;
 
-    public ControladoraLogica() {
+    public LoginController() {
         controlPersistencia = new ControladoraPersistencia ();
     }
 
     
     
-    public String validarUsuario(String user, String pass) {
-        String mensaje="";
+    public Miembro validarUsuario(String user, String pass) {
+        
+        Miembro usuario = null;
+        
         List<Miembro> listaMiembros = controlPersistencia.traerMiembros();
         
         for (Miembro miembro : listaMiembros) {
-            if (miembro.getNombre().equals(user)) {
+            if (String.valueOf(miembro.getId()).equals(user)) {
                 if (miembro.getClave().equals(pass)) {
-                    mensaje = "Bienvenido";
-                    return mensaje;
+                    usuario = miembro;
+                    return usuario;
                 } else  {
-                    mensaje = "Clave incorrecta";
-                    return mensaje;
+                    usuario = null;
+                    return usuario;
                 }
             } else {
-                mensaje = "No encontrado";
+                usuario = null;
             }
         }
-        return mensaje;
+        return usuario;
     }
+
+
+
+  
     
 }

@@ -1,13 +1,14 @@
 package unam.biblioteca.view;
 
-import unam.biblioteca.controller.ControladoraLogica;
+import unam.biblioteca.controller.LoginController;
+import unam.biblioteca.model.Miembro;
 
 public class Login extends javax.swing.JFrame {
 
-    ControladoraLogica controlLogica;
+    LoginController controlLogica;
     public Login() {
         initComponents();
-        controlLogica  = new ControladoraLogica();
+        controlLogica  = new LoginController();
     }
 
     /**
@@ -158,9 +159,26 @@ public class Login extends javax.swing.JFrame {
        
        String user = txtUser.getText();
        String pass = txtPass.getText();
-       String mensaje = controlLogica.validarUsuario(user,pass);
+       Miembro usuario = controlLogica.validarUsuario(user,pass);
        
-       txtMensaje.setText(mensaje);
+        if (usuario!=null) {
+            int rol = usuario.getUnRol().getId();
+            if (rol == 1) { //bibliotecario
+                PrincipalBibliotecario pBiblio = new PrincipalBibliotecario (controlLogica, usuario);
+                pBiblio.setVisible(true);
+                pBiblio.setLocationRelativeTo(null);
+                this.dispose();
+                
+            } else if (rol == 2){ //usuario
+                PrincipalUsuario pUsuario = new PrincipalUsuario (controlLogica, usuario);
+                pUsuario.setVisible(true);
+                pUsuario.setLocationRelativeTo(null);
+                this.dispose();
+            }
+        }else {
+            txtMensaje.setText("Usuario o clave incorrecto");
+        }
+       
     }//GEN-LAST:event_btnLoginActionPerformed
 
   

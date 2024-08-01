@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37de5ed0-0d6c-4251-a4c8-e94bb39c4703" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/unam/biblioteca/Biblioteca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/unam/biblioteca/Biblioteca.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/unam/biblioteca/controller/ControladoraLogica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/unam/biblioteca/controller/ControladoraLogica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/unam/biblioteca/view/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/unam/biblioteca/view/Login.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,22 +16,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Camila-Ailen"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Camila-Ailen&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Camila-Ailen/Biblioteca.git",
-    "accountId": "d32db8b9-cd04-4c4d-87c5-3fa3c5e74545"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Camila-Ailen/Biblioteca.git&quot;,
+    &quot;accountId&quot;: &quot;d32db8b9-cd04-4c4d-87c5-3fa3c5e74545&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 0
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2jwC1UiugsRrN5srEO19vfV5j5A" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -39,11 +39,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Biblioteca.executor": "Run",
+    "Application.Biblioteca.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "javafx",
+    "git-widget-placeholder": "swing",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/camilaailen/Documents/FACULTAD/POO1(2024)/Biblioteca"
+    "last_opened_file_path": "/home/camilaailen/Documents/FACULTAD/POO1(2024)/Biblioteca",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
   <component name="RunManager">
